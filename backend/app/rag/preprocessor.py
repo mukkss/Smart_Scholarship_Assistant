@@ -9,10 +9,8 @@ from ..config import CHUNK_SIZE, CHUNK_OVERLAP
 def load_and_split_pdfs(folder_path: str) -> List[Document]:
     """
     Loads all PDF files from a folder and splits them into chunked LangChain Documents.
-    
     Args:
         folder_path (str): Path to the folder with PDF files.
-    
     Returns:
         List[Document]: List of chunked documents with metadata.
     """
@@ -51,6 +49,3 @@ def load_and_split_pdfs(folder_path: str) -> List[Document]:
             continue
     
     return all_chunks
-
-
-
