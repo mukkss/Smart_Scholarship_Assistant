@@ -35,7 +35,6 @@ def get_retriever():
     """
 
     vector_store = get_vector_store()
-
     retriever = vector_store.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
