@@ -1,0 +1,36 @@
+# Google
+google-generativeai
+langchain-google-genai
+
+# LangChain
+langchain
+langchain-community
+langchain-core
+langchain-huggingface
+langchain-text-splitters
+langchain-pinecone
+langchain-google-genai
+langgraph
+
+# Pinecone
+pinecone-client
+
+# Embeddings
+sentence-transformers
+
+# PyTorch CPU (to avoid DLL errors on Windows)
+# torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu
+
+# PDF Handling
+pypdf
+PyPDF2
+
+# Tokenizer
+tiktoken
+
+# Backend
+fastapi
+uvicorn[standard]
+
+# Environment variables
+python-dotenv
