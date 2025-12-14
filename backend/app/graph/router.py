@@ -11,6 +11,13 @@ def run_agent(user_input:str):
     
     for msg in reversed(result_state["messages"]):
         if isinstance(msg, AIMessage):
+            # Gemini sometimes returns list of chunks
+            if isinstance(msg.content, list):
+                return "\n".join(
+                    chunk["text"]
+                    for chunk in msg.content
+                    if chunk.get("type") == "text"
+                )
             return msg.content
 
     return "No answer generated."
