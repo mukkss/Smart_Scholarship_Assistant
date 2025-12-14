@@ -15,3 +15,9 @@ PINECONE_DIMENSION = int(os.getenv("PINECONE_DIMENSION"))
 # Chunking
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1000"))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "200"))
+
+# Tavily API Key
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+
+# Groq API Key
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
