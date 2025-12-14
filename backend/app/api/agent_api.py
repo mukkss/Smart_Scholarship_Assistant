@@ -1,21 +1,19 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from ..graph.router import run_agent
 
-router = APIRouter()
+router = APIRouter(prefix="/agent", tags=["Agent"])
 
 class AgentRequest(BaseModel):
     query: str
 
 
-@router.post("/agent")
-async def agent_endpoint(request: AgentRequest):
+@router.post("/run")
+def run_agent_api(request: AgentRequest):
     try:
-        response = run_agent(request.query)
-        return {
-            "status": "success",
-            "response": response
-        }
+        result = run_agent(request.query)
+        return {"answer": result}
     except Exception as e:
-        return {"status": "error", "message": str(e)}
+        raise HTTPException(status_code=500, detail=str(e))
+
     
