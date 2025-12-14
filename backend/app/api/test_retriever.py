@@ -9,7 +9,7 @@ class QueryRequest(BaseModel):
     query: str
 
 
-@router.post("/test-retriever")
+@router.post("/test_retriever")
 async def test_retriever(request: QueryRequest):
     retriever = get_retriever()
     try:
