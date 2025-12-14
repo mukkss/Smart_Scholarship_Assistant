@@ -42,7 +42,7 @@ const ChatInterface = () => {
                     S
                 </div>
                 <div>
-                    <h1 className="text-xl font-bold text-slate-100 tracking-tight">Scholarship Assistant</h1>
+                    <h1 className="text-xl font-bold text-slate-100 tracking-tight">Smart Scholarship Assistant</h1>
                     <p className="text-xs text-green-400 font-medium flex items-center shadow-green-900/50">
                         <span className="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></span>
                         Online

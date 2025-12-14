@@ -16,9 +16,13 @@ const MessageList = ({ messages, isLoading }) => {
                 <div className="flex-1"></div>
 
                 {messages.length === 0 && (
-                    <div className="text-center text-slate-500 my-10 animate-fade-in">
-                        <p className="text-lg font-semibold tracking-wide">Welcome to Scholarship Assistant</p>
-                        <p className="text-sm">Ask me anything about scholarships!</p>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 animate-fade-in pointer-events-none opacity-80">
+                        <p className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-tight leading-tight mb-4 drop-shadow-sm">
+                            Smart Scholarship<br />Assistant
+                        </p>
+                        <p className="text-xl md:text-2xl text-slate-400 font-light max-w-lg">
+                            Ask me anything about scholarships, deadlines, and requirements.
+                        </p>
                     </div>
                 )}
 
