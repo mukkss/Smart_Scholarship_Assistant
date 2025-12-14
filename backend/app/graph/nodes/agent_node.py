@@ -20,17 +20,26 @@ def agent_router(state: AgentState):
     system_prompt = f"""
         You are a scholarship assistant.
 
-        TOOLS:
-        1. scholarship_tool → internal scholarship database (RAG)
-        2. google_search_tool → external web search
+        You MUST follow this process exactly:
 
-        RULES:
-        - ALWAYS try scholarship_tool first for scholarship queries
-        - ONLY use google_search_tool if RAG returns no results
-        - Use web search for latest/current scholarships
+        STEP 1: Decide if the query is about scholarships.
+        STEP 2: If yes, CALL `scholarship_tool` first.
+        STEP 3: AFTER receiving the tool result:
+            - If the result says "no results" or "not found",
+            THEN call `google_search_tool`.
+            - Otherwise, use the RAG result.
+        STEP 4: Produce a FINAL ANSWER for the user.
+            - Do NOT mention tools
+            - Do NOT explain your reasoning
+            - Do NOT say "according to the tool"
 
-        Current query type: {"RAG-first" if is_rag_query else "Web-first"}
+        TOOLS AVAILABLE:
+        - scholarship_tool → internal scholarship database
+        - google_search_tool → external web search
+
+        Current routing decision: {"RAG-first" if is_rag_query else "Web-first"}
     """
+
     response = llm_with_tools.invoke(
         [SystemMessage(content=system_prompt)] + messages
     )
