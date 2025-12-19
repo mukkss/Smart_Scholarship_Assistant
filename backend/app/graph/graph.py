@@ -6,11 +6,13 @@ from .state import AgentState
 from .nodes.agent_node import agent_router
 from .nodes.tool_node import execute_tools
 
+
+
 def should_continue(state: AgentState) -> Literal["tools", "END"]:
     last = state["messages"][-1]
     return "tools" if isinstance(last, AIMessage) and last.tool_calls else END
 
-def build_graph():
+def build_graph(checkpointer):
     graph = StateGraph(AgentState)
 
     graph.add_node("agent", agent_router)
@@ -20,4 +22,4 @@ def build_graph():
     graph.add_conditional_edges("agent", should_continue, ["tools", END])
     graph.add_edge("tools", "agent")
 
-    return graph.compile()
+    return graph.compile(checkpointer=checkpointer)

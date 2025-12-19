@@ -1,17 +1,28 @@
 from langchain_core.messages import HumanMessage, AIMessage
-from .graph import build_graph
+# from .graph import build_graph
+from ..config import DEFAULT_THREAD_ID
+from ..graph import runtime
 
-agent  = build_graph()
+
 
 def run_agent(user_input:str):
-    initial_state = {
-        "messages": [HumanMessage(content=user_input)],
-    }
-    result_state = agent.invoke(initial_state)
+    if runtime.agent is None:
+        raise RuntimeError("Graph not initialized")
     
+    config = {
+        "configurable": {
+            "thread_id": DEFAULT_THREAD_ID
+        }
+    }
+    result_state = runtime.agent.invoke(
+        {
+            "messages": [HumanMessage(content=user_input)],
+        },
+        config
+    )
+
     for msg in reversed(result_state["messages"]):
         if isinstance(msg, AIMessage):
-            # Gemini sometimes returns list of chunks
             if isinstance(msg.content, list):
                 return "\n".join(
                     chunk["text"]
