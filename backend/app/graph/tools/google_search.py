@@ -14,6 +14,6 @@ search_engine = TavilySearch(
     )
     
 @tool
-def google_search_tool(query: str) -> str:  # ✅ Takes query param
+def google_search_tool(query: str) -> str:
     """Search scholarships on the web."""
     return search_engine.invoke(query) 

@@ -7,7 +7,7 @@ from .embed import get_embedding_model
 from ..config import PINECONE_API_KEY, PINECONE_INDEX_NAME
 
 
-# Cache the embedding model to avoid reloading
+
 @lru_cache
 def _get_embeddings():
     return get_embedding_model()
@@ -38,8 +38,8 @@ def get_retriever():
     retriever = vector_store.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
-            "k": 3,                # return top 3 docs
-            "score_threshold": 0.4 # minimum similarity
+            "k": 3,             
+            "score_threshold": 0.4 
         }
     )
     return retriever

@@ -1,7 +1,7 @@
 from langchain.tools import tool, ToolRuntime
 from ...rag.retriever import get_retriever
 
-retriever = get_retriever()   # this is a Runnable retriever
+retriever = get_retriever()
 
 @tool
 def scholarship_tool(query: str) -> str:

@@ -15,15 +15,13 @@ def build_pinecone_index(folder_path: str, index_name: str):
 
     folder = Path(folder_path)
 
-    # -----------------------------------
-    # 1. PATH VALIDATION
-    # -----------------------------------
+
     if not folder.exists():
         raise FileNotFoundError(f"Path does not exist: {folder.resolve()}")
 
-    # If input is a file, convert to parent folder
+
     if folder.is_file():
-        print(f"⚠️ Provided path is a FILE. Using parent folder instead: {folder.parent}")
+        print(f"Provided path is a FILE. Using parent folder instead: {folder.parent}")
         folder = folder.parent
         
 
@@ -49,7 +47,7 @@ def build_pinecone_index(folder_path: str, index_name: str):
     return f"Indexed {len(documents)} chunks into Pinecone '{index_name}'"
 
 
-# Example usage:
+
 build_pinecone_index(
     folder_path="data/",
     index_name=PINECONE_INDEX_NAME
