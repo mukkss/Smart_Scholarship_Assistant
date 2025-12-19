@@ -21,3 +21,15 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
 # Groq API Key
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# MongoDB URI
+DB_URI = os.getenv("DB_URI")
+
+# Langsmith Configuration
+LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING")
+LANGSMITH_ENDPOINT = os.getenv("LANGSMITH_ENDPOINT")
+LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT")
+
+# Thread Configuration
+DEFAULT_THREAD_ID = os.getenv("DEFAULT_THREAD_ID")
