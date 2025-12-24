@@ -12,7 +12,5 @@ async def graph_lifespan(app):
     with MongoDBSaver.from_conn_string(DB_URI) as saver:
         runtime.agent = build_graph(checkpointer=saver)
         print("LangGraph initialized with MongoDB")
-
         yield
-
     print("MongoDBSaver closed")
