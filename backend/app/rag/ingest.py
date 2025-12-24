@@ -1,7 +1,7 @@
 from typing import List
 from pathlib import Path
 from langchain_core.documents import Document
-from .preprocessor import load_and_split_pdfs
+from .preprocessor import load_and_split_markdown
 from .embed import get_embedding_model
 from .vectorstore import get_vector_store
 from ..config import PINECONE_INDEX_NAME, PINECONE_API_KEY, GOOGLE_API_KEY
@@ -9,7 +9,7 @@ from ..config import PINECONE_INDEX_NAME, PINECONE_API_KEY, GOOGLE_API_KEY
 
 def build_pinecone_index(folder_path: str, index_name: str):
     """
-    Loads PDFs → splits → embeds → stores in Pinecone.
+    Loads Markdown files → splits → embeds → stores in Pinecone.
     """
 
 
@@ -25,9 +25,9 @@ def build_pinecone_index(folder_path: str, index_name: str):
         folder = folder.parent
         
 
-    
-    print("Loading & splitting PDFs...")
-    documents: List[Document] = load_and_split_pdfs(folder_path)
+
+    print("Loading & splitting Markdown files...")
+    documents: List[Document] = load_and_split_markdown(folder_path)
 
     if not documents:
         raise ValueError("No valid documents found to index")
