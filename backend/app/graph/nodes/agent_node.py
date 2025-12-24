@@ -2,6 +2,7 @@ from ...llm.model import get_llm
 from ..tools import TOOLS
 from ..state import AgentState
 from langchain_core.messages import AIMessage, SystemMessage
+from ...utils.summarize_db_context import summarize_messages
 
 llm = get_llm()
 llm_with_tools = llm.bind_tools(TOOLS)
@@ -12,8 +13,30 @@ RAG_KEYWORDS = [
     "funding", "apply", "deadline", "eligibility", "requirements"
 ]
 
-def agent_router(state: AgentState):
+
+MAX_RECENT_MESSAGES = 6
+SUMMARIZE_AFTER = 10
+
+
+def agent_node(state: AgentState):
     messages = state["messages"]
+    summary = state.get("summary")
+
+    if len(messages) > SUMMARIZE_AFTER:
+        old_messages = messages[:-MAX_RECENT_MESSAGES]
+        recent_messages = messages[-MAX_RECENT_MESSAGES:]
+
+        new_summary = summarize_messages(
+            old_messages=old_messages,
+            existing_summary=summary
+        )
+
+        messages = [
+            SystemMessage(content=f"Conversation summary:\n{new_summary}")
+        ] + recent_messages
+
+        summary = new_summary
+
     user_query = messages[-1].content.lower()
     is_rag_query = any(k in user_query for k in RAG_KEYWORDS)
 
@@ -44,4 +67,9 @@ def agent_router(state: AgentState):
         [SystemMessage(content=system_prompt)] + messages
     )
 
-    return {"messages": [response]}
+
+    return {
+        "messages": [response],
+        "summary": summary,
+        "final_answer": response.content
+    }
