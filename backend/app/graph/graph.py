@@ -3,7 +3,7 @@ from langchain_core.messages import AIMessage
 from langgraph.graph import StateGraph, START, END
 
 from .state import AgentState
-from .nodes.agent_node import agent_router
+from .nodes.agent_node import agent_node
 from .nodes.tool_node import execute_tools
 
 
@@ -15,7 +15,7 @@ def should_continue(state: AgentState) -> Literal["tools", "END"]:
 def build_graph(checkpointer):
     graph = StateGraph(AgentState)
 
-    graph.add_node("agent", agent_router)
+    graph.add_node("agent", agent_node)
     graph.add_node("tools", execute_tools)
 
     graph.add_edge(START, "agent")
